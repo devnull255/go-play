@@ -15,7 +15,17 @@ func check(e error) {
 }
 
 func main() {
-  dir,err := os.Open("/Users/devnull")  
+  default_dir := os.Getenv("HOME")
+
+  var start_dir string
+
+  if len(os.Args) > 1  {
+     start_dir = os.Args[1]
+  } else {
+     start_dir = default_dir
+  }
+  
+  dir,err := os.Open(start_dir)  
   check(err)
   
   defer dir.Close()
